@@ -1,0 +1,312 @@
+{
+  "nodes": [
+    {
+      "from": 52,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 64,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 62,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 54,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 60,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 56,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 58,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 66,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 50,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 48,
+      "label": "",
+      "to": 19,
+      "distance": 0
+    },
+    {
+      "from": 48,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 50,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 52,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 54,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 56,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 58,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 60,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 62,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 64,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 66,
+      "label": "",
+      "to": 39,
+      "distance": 0
+    },
+    {
+      "from": 46,
+      "label": "",
+      "to": 41,
+      "distance": 0
+    },
+    {
+      "from": 47,
+      "label": "",
+      "to": 43,
+      "distance": 0
+    },
+    {
+      "from": 47,
+      "label": "",
+      "to": 46,
+      "distance": 0
+    },
+    {
+      "from": 46,
+      "label": "",
+      "to": 47,
+      "distance": 0
+    },
+    {
+      "from": 48,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 50,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 52,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 54,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 56,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 58,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 60,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 62,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 64,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    },
+    {
+      "from": 66,
+      "label": "",
+      "to": 67,
+      "distance": 0
+    }
+  ],
+  "edges": [
+    {
+      "group": "Event",
+      "id": 52,
+      "label": "rationalisation",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 19,
+      "label": "keyword",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 64,
+      "label": "property",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 62,
+      "label": "tariffs",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 54,
+      "label": "gas",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 60,
+      "label": "trade",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 56,
+      "label": "electricity",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 58,
+      "label": "subsidies",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 66,
+      "label": "tax",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 50,
+      "label": "include",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 48,
+      "label": "reversals",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 39,
+      "label": "frequency",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 46,
+      "label": "The World Bank",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 41,
+      "label": "Organization",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 47,
+      "label": "Pakistan",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 43,
+      "label": "Location",
+      "distance": 0
+    },
+    {
+      "group": "Event",
+      "id": 67,
+      "label": "related",
+      "distance": 0
+    }
+  ]
+}
