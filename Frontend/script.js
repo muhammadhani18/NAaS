@@ -109,10 +109,10 @@ form.addEventListener("submit", (e) => {
         "startDate": $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD'),
         "endDate": $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD')
     }
-    // selected = $('#Source').val();
+  
     data = JSON.stringify(data);
-    // let data = JSON.stringify(Object.fromEntries(formData));
-    // console.log(data)
+    console.log(data)
+    
     if ($('#Source').val() == "") {
         alert("Please select a news source!")
     }
@@ -169,6 +169,37 @@ function liveNewsUpdate() {
             .openOn(map);
     }
 }
+
+var startDate = '2023-04-01'; // Get start date
+var endDate = '2023-04-30'; // Get end date
+
+// Prepare data to send
+var requestData = {
+    startDate: startDate,
+    endDate: endDate
+};
+console.log(requestData);
+
+fetch('http://localhost:4000/keywords', {
+        method: 'POST',
+        body: JSON.stringify(requestData)
+    }).then(res=> {
+        console.log(res);
+        res.text().then(text => console.log(text))
+        console.log();
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return res.json();
+    })
+    .catch(err=> console.log(err))
+
+ 
+ 
+
+
+
+
 
 
 
@@ -306,9 +337,41 @@ $('#Source').on('changed.bs.select', function (e) {
         $('#' + bodyData["locations"][i]["location_type"]).append('<option data-tokens=' + bodyData["locations"][i]["name"] + '>' + bodyData["locations"][i]["name"] + '</option>')
         // console.log($('#' + bodyData["locations"][i]["location_type"]).children())
     }
-    for (var i = 0; i < bodyData["topics"].length; i++) {
-        $('#Topic').append('<option data-tokens=' + bodyData["topics"][i] + '>' + bodyData["topics"][i] + '</option>')
+    var data = {
+        "startDate": $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD'),
+        "endDate": $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD')
     }
+    console.log(data);
+
+    fetch('http://localhost:4000/keywords', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Select the Topics dropdown
+        var topicsDropdown = document.getElementById('Topic');
+
+        // Clear existing options
+        topicsDropdown.innerHTML = '';
+
+        // Append new options based on the data received
+        data.forEach(item => {
+            var option = document.createElement('option');
+            option.text = item.word;
+            option.value = item.word;
+            topicsDropdown.appendChild(option);
+        });
+
+        // Refresh the selectpicker to update the dropdown
+        $('.selectpicker').selectpicker('refresh');
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+    // for (var i = 0; i < bodyData["topics"].length; i++) {
+    //     $('#Topic').append('<option data-tokens=' + bodyData["topics"][i] + '>' + bodyData["topics"][i] + '</option>')
+    // }
 
     // $('#reportrange').daterangepicker({
     //     minDate: Date(bodyData["startTime"]),
@@ -328,14 +391,6 @@ function onEachFeature(feature, layer) {
 }
 
 
-// function mapChange(responseData) {
-//     for (var i = 0; i < responseData.length; i++) {
-
-//         areaData = JSON.parse(responseData[i]["coordinates"])
-//         geoJson = L.geoJson(areaData).addTo(map);
-
-//     }
-// }
 
 
 var legend = L.control({ position: 'topright' });

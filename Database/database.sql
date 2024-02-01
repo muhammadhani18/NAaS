@@ -194,6 +194,8 @@ CREATE TABLE union_council(
    tehsil varchar(50),
    CONSTRAINT fk_union FOREIGN KEY(tehsil) REFERENCES tehsil(name)
 );
+
+
 CREATE TABLE NEWS_Dawn(
    id serial,
    header TEXT,
@@ -243,23 +245,6 @@ CREATE TABLE NEWS_Tribune(
    CONSTRAINT PK_NEWS_Tribune PRIMARY KEY(id, focus_time, focus_location)
 );
 
--- -- Sample Query
--- insert into NEWS(
---       header,
---       details,
---       link,
---       focus_time,
---       focus_location,
---       province
---    )
--- VALUES(
---       'header',
---       'details 123',
---       'http',
---       '2022-05-16',
---       'KARACHI',
---       'SINDH'
---    );
 
 
 -- Table to hold all the locations and their type to search for type when searching for NEWS
@@ -282,68 +267,3 @@ select name, 'Tehsil' from tehsil;
 INSERT INTO Locations(name, location_type)
 select name, 'Union_Council' from union_council;
 
--- UPDATE NEWS n
--- SET location_type = l.location_type from locations l where l.name = n.focus_location;
-
--- SELECT n.focus_location, CASE 
--- 	  WHEN n.location_type = 'Province' THEN p.coordinates 
--- 	  WHEN n.location_type = 'District' THEN d.coordinates 
--- 	  ELSE NULL 
--- 	END AS coordinates 
---   FROM 
--- 	news n 
--- 	LEFT JOIN province p ON n.focus_location = p.name AND n.location_type = 'Province' 
--- 	LEFT JOIN district d ON n.focus_location = d.name AND n.location_type = 'District' limit 1;
-
---    SELECT n.topics,
---   CASE 
---     WHEN n.location_type = 'Province' THEN p.name 
---     WHEN n.location_type = 'District' THEN d.name
---     WHEN n.location_type = 'Tehsil' THEN t.name 
-
---     ELSE NULL 
---   END AS location
--- FROM 
---   news n 
---   LEFT JOIN province p ON n.focus_location = p.name AND n.location_type = 'Province' 
---   LEFT JOIN district d ON n.focus_location = d.name AND n.location_type = 'District'
---   LEFT JOIN tehsil t ON n.focus_location = t.name AND n.location_type = 'Tehsil' 
---  where n.province = 'PUNJAB' and n.focus_time::date between '2022-12-20' and '2022-12-29';
-
-
---  where ARRAY['islamabad', 'hello'] && n.topics;
--- SELECT 
---   topic, COUNT(*) AS frequency 
--- FROM 
---   (SELECT 
---     (UNNEST(topics)) AS topic 
---   FROM 
---     news n) 
---   AS extracted_topics 
--- GROUP BY topic 
--- ORDER BY frequency DESC;
-
--- SELECT n.focus_location 
--- FROM news n 
--- JOIN (
---   SELECT focus_location, COUNT(*) AS frequency 
---   FROM news 
---   GROUP BY focus_location 
---   ORDER BY frequency DESC
--- ) t ON n.focus_location = t.focus_location 
--- ORDER BY t.frequency DESC;
-
-
--- SELECT distinct(n.header), n.focus_time::date, n.category, n.link, n.topics, n.location_type,
--- 			CASE 
--- 			WHEN n.location_type = 'Province' THEN p.name 
--- 			WHEN n.location_type = 'District' THEN d.name
--- 			WHEN n.location_type = 'Tehsil' THEN t.name 
-			
--- 			ELSE NULL 
--- 			END AS location
--- 			FROM 
--- 			news n 
--- 			LEFT JOIN province p ON n.focus_location = p.name AND n.location_type = 'Province' 
--- 			LEFT JOIN district d ON n.focus_location = d.name AND n.location_type = 'District'
--- 			LEFT JOIN tehsil t ON n.focus_location = t.name AND n.location_type = 'Tehsil';

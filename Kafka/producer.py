@@ -26,7 +26,7 @@ class Producer():
         #     # print(data["Header"])
         topic_name = 'topic_test1'
         count = 1
-        for file_path in glob.iglob(r'2023/**/*.csv'):
+        for file_path in glob.iglob(r'../Scrapper/2024/**/*.csv'):
             # Open the file and read the contents
             with open(file_path, 'r') as file:
                 reader = file.read()

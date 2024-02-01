@@ -219,7 +219,7 @@ class parser():
     def Get_location(self, read_more, header):
         if len(self.index) <= 0:
             # Loading data set of ECP Election commission of Pakistan 
-            self.load_cities("/opt/bitnami/spark/data/Parser/Alldata_refined.csv")
+            self.load_cities("Alldata_refined.csv")
         # Clean header of news
         header = self.clean(header)
         # Split header
@@ -307,7 +307,7 @@ class parser():
         self.city = max(cities, key=cities.get, default="null")
         if self.city == 0:
             print(cities)
-        df = pd.read_csv("/opt/bitnami/spark/data/Parser/Alldata_refined.csv")
+        df = pd.read_csv("Alldata_refined.csv")
         # Droping NULL rows
         df = df.dropna()
         # Extracting location col
@@ -415,12 +415,12 @@ def main():
     jsonObject = []
     Parser = parser()
     # Read files one by one
-    for filename in glob.iglob(r'/opt/bitnami/spark/data/Scrapper/2024/**/*.csv', recursive=True):
+    for filename in glob.iglob(r'../Scrapper/2024/**/*.csv', recursive=True):
         # C:\Danyal\Work\FAST\Semester 8\Final Year Project - II\Project\NAaaS\Scrapper\Tribune\2023\2023-04-11\international.csv
         # ..\Scrapper\Tribune\2023\**\*.csv
         path = pathlib.PurePath(filename)
         fileName = path.name[:-4]
-        print("FILENAME: ",fileName)
+        print(fileName)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
         # df['Creation_Date'] = path.parent.name
         print("Now parsing", filename)
@@ -428,7 +428,7 @@ def main():
         df = pd.concat(li, axis=0, ignore_index=True)
         # Create a major dataframe
     
-    print("HHHHHHHHHHHHHHHHELLLO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")    
+    print("hello")    
     for i in range(len(df)):
         results = dict()
         # Extract focus location

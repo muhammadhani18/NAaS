@@ -1,0 +1,621 @@
+{
+  "nodes": [
+    {
+      "from": 104,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 106,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 108,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 102,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 110,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 100,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 98,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 112,
+      "label": "",
+      "to": 15,
+      "category": "keyword",
+      "distance": 0
+    },
+    {
+      "from": 98,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 100,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 102,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 104,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 106,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 108,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 110,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 112,
+      "label": "",
+      "to": 31,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 93,
+      "label": "",
+      "to": 57,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 89,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 36,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 79,
+      "label": "",
+      "to": 39,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 77,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 81,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 80,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 84,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 48,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 88,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 92,
+      "label": "",
+      "to": 57,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 96,
+      "label": "",
+      "to": 55,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 97,
+      "label": "",
+      "to": 57,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 77,
+      "label": "",
+      "to": 79,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 77,
+      "label": "",
+      "to": 81,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 77,
+      "label": "",
+      "to": 80,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 79,
+      "label": "",
+      "to": 77,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 79,
+      "label": "",
+      "to": 81,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 79,
+      "label": "",
+      "to": 80,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 81,
+      "label": "",
+      "to": 77,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 81,
+      "label": "",
+      "to": 79,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 81,
+      "label": "",
+      "to": 80,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 80,
+      "label": "",
+      "to": 77,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 80,
+      "label": "",
+      "to": 79,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 80,
+      "label": "",
+      "to": 81,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 89,
+      "label": "",
+      "to": 84,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 84,
+      "label": "",
+      "to": 89,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 89,
+      "label": "",
+      "to": 88,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 88,
+      "label": "",
+      "to": 89,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 93,
+      "label": "",
+      "to": 92,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 92,
+      "label": "",
+      "to": 93,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 97,
+      "label": "",
+      "to": 96,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 96,
+      "label": "",
+      "to": 97,
+      "category": "related",
+      "distance": 0
+    },
+    {
+      "from": 98,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 100,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 102,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 104,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 106,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 108,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 110,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    },
+    {
+      "from": 112,
+      "label": "",
+      "to": 113,
+      "category": "frequency",
+      "distance": 0
+    }
+  ],
+  "edges": [
+    {
+      "id": 104,
+      "label": "horses",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 15,
+      "label": "keyword",
+      "category": "keyword",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 106,
+      "label": "drink",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 108,
+      "label": "water",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 102,
+      "label": "elephants",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 110,
+      "label": "stairs",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 100,
+      "label": "animals",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 98,
+      "label": "humans",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 112,
+      "label": "added",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 31,
+      "label": "frequency",
+      "category": "frequency",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 93,
+      "label": "Khora",
+      "category": "other",
+      "ner": "GPE",
+      "value": "GPE",
+      "distance": 0
+    },
+    {
+      "id": 57,
+      "label": "Location",
+      "category": "Location",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 89,
+      "label": "Khushab",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 55,
+      "label": "Person",
+      "category": "other",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 36,
+      "label": "Sher Shah Suri's",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 79,
+      "label": "The Express Tribune",
+      "category": "other",
+      "ner": "ORG",
+      "value": "ORG",
+      "distance": 0
+    },
+    {
+      "id": 39,
+      "label": "Organization",
+      "category": "Organization",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    },
+    {
+      "id": 77,
+      "label": "Malik Shabeer Awan",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 81,
+      "label": "Farid Khan",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 80,
+      "label": "Sher Shah Suri",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 84,
+      "label": "Suri",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 48,
+      "label": "Khush-Aab",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 88,
+      "label": "Swan",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 92,
+      "label": "Ochai",
+      "category": "other",
+      "ner": "GPE",
+      "value": "GPE",
+      "distance": 0
+    },
+    {
+      "id": 96,
+      "label": "Malik Ikram Afzal",
+      "category": "other",
+      "ner": "PERSON",
+      "value": "PERSON",
+      "distance": 0
+    },
+    {
+      "id": 97,
+      "label": "Parwan Bacharan",
+      "category": "other",
+      "ner": "GPE",
+      "value": "GPE",
+      "distance": 0
+    },
+    {
+      "id": 113,
+      "label": "related",
+      "category": "related",
+      "ner": null,
+      "value": 0,
+      "distance": 0
+    }
+  ]
+}

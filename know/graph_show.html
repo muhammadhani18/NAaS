@@ -1,0 +1,132 @@
+
+    <html>
+    <head>
+      <script type="text/javascript" src="VIS/dist/vis.js"></script>
+      <link href="VIS/dist/vis.css" rel="stylesheet" type="text/css">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>NAaaS what you're looking for</title>
+      <link rel="stylesheet" href="../Frontend/Style.css">
+  
+  
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+          crossorigin="" />
+  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  
+      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+          integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+          crossorigin=""></script>
+  
+  
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  
+  
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+          defer></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">NAaaS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="../Frontend/index.html">Home</a>
+                <a class="nav-item nav-link" href="#">Feedback</a>
+                <a class="nav-item nav-link" href="../know-gr/graph_show.html">Knowledge Graph</a>
+            </div>
+        </div>
+    </nav>
+    <div id="VIS_draw"></div>
+
+    <script type="text/javascript">
+      var nodes = [{'id': 122, 'label': 'stay', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 15, 'label': 'keyword', 'category': 'keyword', 'ner': 'org', 'value': 0}, {'id': 120, 'label': 'Twitter', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 116, 'label': 'follow', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 118, 'label': '@TribuneBiz', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 124, 'label': 'join', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 114, 'label': 'Facebook', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 112, 'label': 'Business', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 126, 'label': 'conversation', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 31, 'label': 'frequency', 'category': 'frequency', 'ner': 'org', 'value': 0}, {'id': 106, 'label': 'Pakistan', 'category': 'other', 'ner': 'org', 'value': 'GPE'}, {'id': 39, 'label': 'Location', 'category': 'Location', 'ner': 'org', 'value': 0}, {'id': 83, 'label': 'IMF', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 71, 'label': 'Organization', 'category': 'Organization', 'ner': 'org', 'value': 0}, {'id': 111, 'label': 'Hyderabad', 'category': 'other', 'ner': 'org', 'value': 'GPE'}, {'id': 110, 'label': 'Sindh', 'category': 'other', 'ner': 'org', 'value': 'GPE'}, {'id': 95, 'label': 'PBC', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 74, 'label': 'HEC', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 75, 'label': 'IMS Engineering', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 86, 'label': 'the International Monetary Fund', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 103, 'label': 'The Express Tribune', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 107, 'label': 'Hub Power', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 52, 'label': 'the Pakistan Bureau of Statistics', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 54, 'label': 'International Monetary Fund', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 79, 'label': 'the World Bank', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 78, 'label': 'the Asian Development Bank', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 60, 'label': 'PBS', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 62, 'label': 'Rs288', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 87, 'label': 'the Pakistan Business Council', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 94, 'label': 'the Benazir Income Support Fund', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 99, 'label': 'Kakar', 'category': 'other', 'ner': 'org', 'value': 'PERSON'}, {'id': 69, 'label': 'Person', 'category': 'other', 'ner': 'org', 'value': 0}, {'id': 70, 'label': 'the National Finance Commission', 'category': 'other', 'ner': 'org', 'value': 'ORG'}, {'id': 127, 'label': 'related', 'category': 'related', 'ner': 'org', 'value': 0}];
+var edges = [{'from': 122, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 120, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 116, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 118, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 124, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 114, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 112, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 126, 'label': '', 'to': 15, 'category': 'keyword'}, {'from': 112, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 114, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 116, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 118, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 120, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 122, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 124, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 126, 'label': '', 'to': 31, 'category': 'frequency'}, {'from': 106, 'label': '', 'to': 39, 'category': 'related'}, {'from': 83, 'label': '', 'to': 71, 'category': 'related'}, {'from': 111, 'label': '', 'to': 39, 'category': 'related'}, {'from': 110, 'label': '', 'to': 39, 'category': 'related'}, {'from': 95, 'label': '', 'to': 71, 'category': 'related'}, {'from': 74, 'label': '', 'to': 71, 'category': 'related'}, {'from': 75, 'label': '', 'to': 71, 'category': 'related'}, {'from': 86, 'label': '', 'to': 71, 'category': 'related'}, {'from': 103, 'label': '', 'to': 71, 'category': 'related'}, {'from': 107, 'label': '', 'to': 71, 'category': 'related'}, {'from': 52, 'label': '', 'to': 71, 'category': 'related'}, {'from': 54, 'label': '', 'to': 71, 'category': 'related'}, {'from': 79, 'label': '', 'to': 71, 'category': 'related'}, {'from': 78, 'label': '', 'to': 71, 'category': 'related'}, {'from': 60, 'label': '', 'to': 71, 'category': 'related'}, {'from': 62, 'label': '', 'to': 71, 'category': 'related'}, {'from': 87, 'label': '', 'to': 71, 'category': 'related'}, {'from': 94, 'label': '', 'to': 71, 'category': 'related'}, {'from': 99, 'label': '', 'to': 69, 'category': 'related'}, {'from': 70, 'label': '', 'to': 71, 'category': 'related'}, {'from': 75, 'label': '', 'to': 74, 'category': 'related'}, {'from': 74, 'label': '', 'to': 75, 'category': 'related'}, {'from': 79, 'label': '', 'to': 78, 'category': 'related'}, {'from': 78, 'label': '', 'to': 79, 'category': 'related'}, {'from': 83, 'label': '', 'to': 106, 'category': 'related'}, {'from': 106, 'label': '', 'to': 83, 'category': 'related'}, {'from': 87, 'label': '', 'to': 86, 'category': 'related'}, {'from': 86, 'label': '', 'to': 87, 'category': 'related'}, {'from': 95, 'label': '', 'to': 106, 'category': 'related'}, {'from': 106, 'label': '', 'to': 95, 'category': 'related'}, {'from': 95, 'label': '', 'to': 94, 'category': 'related'}, {'from': 94, 'label': '', 'to': 95, 'category': 'related'}, {'from': 99, 'label': '', 'to': 106, 'category': 'related'}, {'from': 106, 'label': '', 'to': 99, 'category': 'related'}, {'from': 103, 'label': '', 'to': 106, 'category': 'related'}, {'from': 106, 'label': '', 'to': 103, 'category': 'related'}, {'from': 107, 'label': '', 'to': 106, 'category': 'related'}, {'from': 106, 'label': '', 'to': 107, 'category': 'related'}, {'from': 111, 'label': '', 'to': 110, 'category': 'related'}, {'from': 110, 'label': '', 'to': 111, 'category': 'related'}, {'from': 112, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 114, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 116, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 118, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 120, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 122, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 124, 'label': '', 'to': 127, 'category': 'frequency'}, {'from': 126, 'label': '', 'to': 127, 'category': 'frequency'}];
+
+var container = document.getElementById("VIS_draw");
+
+var data = {
+  nodes: nodes,
+  edges: edges
+};
+
+var options = {
+  nodes: {
+    shape: 'circle',
+    font: {
+      size: 15
+    }
+  },
+  edges: {
+    font: {
+      size: 10,
+      align: 'center'
+    },
+    arrows: {
+      to: { enabled: true, scaleFactor: 1.2 }
+    },
+    smooth: { enabled: true }
+  },
+  physics: {
+    enabled: true
+  }
+};
+
+data.nodes.forEach(function (node) {
+  if (node.category === 'frequency') {
+    node.color = 'lightblue';
+  } else if (node.category === 'keyword') {
+    node.color = 'lightgreen';
+  } 
+  else if (node.category === 'Organization') {
+    node.color = 'red';
+  }else if (node.category === 'Location') {
+    node.color = 'black';
+  }else if (node.category === 'related') {
+    node.color = 'lightcoral';
+  } 
+  // Set a common size for all nodes
+});
+
+data.nodes.forEach(function (node) {
+  // Adjust node color based on value from result_dic
+  if (node.value) {
+    // Assuming result_dic values are in the range [0, 1]
+    var hue = Math.floor((1 - node.value) * 120); // Adjust hue based on value
+    node.color = 'lightyellow';
+  }
+});
+
+data.edges.forEach(function (edge) {
+  if (edge.category === 'frequency') {
+    edge.color = { color: 'blue' };
+  } else if (edge.category === 'keyword') {
+    edge.color = { color: 'green' };
+  } else if (edge.category === 'related') {
+    edge.color = { color: 'red' };
+  } else {
+    edge.color = { color: 'black' };
+  }
+});
+
+var network = new vis.Network(container, data, options);
+
+
+    </script>
+    </body>
+    </html>
+    

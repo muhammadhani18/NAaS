@@ -11,6 +11,8 @@ import (
 	"github.com/lib/pq"
 	_ "github.com/lib/pq"
 	"github.com/rs/cors"
+	"os"
+	"io"
 )
 
 const (
@@ -78,19 +80,48 @@ type newsDataTribune struct {
 	CreationDate  string `json:"creationDate"`
 }
 
+func enableCORS(next http.Handler) http.Handler {
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	
+	// Allow requests from any origin
+	
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	
+	// Allow specified HTTP methods
+	
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	
+	// Allow specified headers
+	
+	w.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept")
+	
+	// Continue with the next handler
+	
+	next.ServeHTTP(w, r)
+	
+	})
+	
+	}
+
 func main() {
 	fmt.Println("Welcome to building an api inn GOLANG")
 	r := mux.NewRouter()
-
+	r.Use(enableCORS)
 	// routing
 	r.HandleFunc("/", PostData).Methods("POST")
+
 	// Get Requests
+	r.HandleFunc("/sendJSON", sendJSONFileContent).Methods("GET")
 	r.HandleFunc("/SearchDawn/{keywords}", getKeywords).Methods("GET")
 	r.HandleFunc("/SearchTribune/{location}", getLocation).Methods("GET")
 	r.HandleFunc("/SearchNews/{timeframe}", getTimeFrame).Methods("GET")
 	r.HandleFunc("/getData/{initialData}", getInitialData).Methods("GET")
+	
 	// Post Requests
 	r.HandleFunc("/PostedData", PostData).Methods("POST")
+	r.HandleFunc("/keywords", GetKeywords).Methods("POST")
+	
 	// Setting up of CORS and giving access
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:8080"},
@@ -103,6 +134,120 @@ func main() {
 
 }
 
+func sendJSONFileContent(w http.ResponseWriter, r *http.Request) {
+    // Open the JSON file
+	fmt.Println("send JSON file")
+
+    file, err := os.Open("../know-gr/keywords.json")
+    if err != nil {
+        // Handle error if unable to open the file
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println("Error opening json file")
+        return
+    }
+    defer file.Close()
+
+	fmt.Println("Opened json file")
+
+    // Set the appropriate content type
+    // w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+
+    // Write the file content to the response writer
+    _, err = io.Copy(w, file)
+    if err != nil {
+        // Handle error if unable to copy file content to response
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+}
+
+
+
+type Keyword struct {
+	Word string `json:"word"`
+}
+func GetKeywords(w http.ResponseWriter, r *http.Request) {
+	
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Methods", "*")
+	// w.Header().Set("Access-Control-Allow-Headers", "*")
+	// w.Header().Set("Content-Type", "application/json")
+
+	// w.Header().Set("Access-Control-Allow-*", "*")
+
+	
+	var dates map[string]string
+	if err := json.NewDecoder(r.Body).Decode(&dates); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+
+	// Retrieve start and end dates from the request
+	startDate := dates["startDate"]
+	endDate := dates["endDate"]
+	fmt.Println(startDate, endDate)
+	// Connect to the database
+	dbInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	db, err := sql.Open("postgres", dbInfo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+	
+	// Execute the SQL query to fetch keywords
+	rows, err := db.Query(`
+		SELECT k.word
+		FROM keywords AS k
+		INNER JOIN news_dawn AS d ON k.dawn_id = d.id
+		WHERE d.creation_date >= $1 AND d.creation_date <= $2
+	`, startDate, endDate)
+	
+
+	if err != nil {
+		
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+	
+	// Slice to store the retrieved keywords
+	var keywords []Keyword
+	
+	// Iterate over the rows and append keywords to the slice
+	for rows.Next() {
+		var word string
+		if err := rows.Scan(&word); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		keywords = append(keywords, Keyword{Word: word})
+	}
+	// fmt.Println(keywords)
+	
+	// Check for errors during iteration
+	if err := rows.Err(); err != nil {
+		fmt.Println(startDate, endDate, 5.1)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	
+	// Encode the keywords slice to JSON and send it in the response
+	
+	if err := json.NewEncoder(w).Encode(keywords); err != nil {
+		fmt.Println(startDate, endDate, 6.1)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	
+	// json.NewEncoder(w).Encode(keywords)
+}
+
+
 // Function to get the keywords when user enters them
 func getKeywords(w http.ResponseWriter, r *http.Request) {
 	var req request
@@ -111,10 +256,12 @@ func getKeywords(w http.ResponseWriter, r *http.Request) {
 
 	json.Unmarshal([]byte(param), &req)
 	fmt.Println(req)
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content=Type", "application/json")
+
+
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
