@@ -227,7 +227,7 @@ func GetKeywords(w http.ResponseWriter, r *http.Request) {
 		}
 		keywords = append(keywords, Keyword{Word: word})
 	}
-	// fmt.Println(keywords)
+	fmt.Println("Keywords: ",keywords)
 	
 	// Check for errors during iteration
 	if err := rows.Err(); err != nil {

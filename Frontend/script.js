@@ -170,48 +170,6 @@ function liveNewsUpdate() {
     }
 }
 
-var startDate = '2023-04-01'; // Get start date
-var endDate = '2023-04-30'; // Get end date
-
-// Prepare data to send
-var requestData = {
-    startDate: startDate,
-    endDate: endDate
-};
-console.log(requestData);
-
-fetch('http://localhost:4000/keywords', {
-        method: 'POST',
-        body: JSON.stringify(requestData)
-    }).then(res=> {
-        console.log(res);
-        res.text().then(text => console.log(text))
-        console.log();
-        if (!res.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return res.json();
-    })
-    .catch(err=> console.log(err))
-
- 
- 
-
-
-
-
-
-
-
-// form.onsubmit = async (e) => {
-//     e.preventDefault();
-//     let formData = new FormData(form);
-//     let data = JSON.stringify(Object.fromEntries(formData));
-//     console.log(data)
-//     // response = JSON.parse(httpGet("http://localhost:4000/SearchNews/" + encodeURIComponent(data)));
-//     // console.log(response);
-//     // changeMap(response)
-// }
 
 const colors = {
     "Province": "#EFF306",
@@ -341,45 +299,63 @@ $('#Source').on('changed.bs.select', function (e) {
         "startDate": $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD'),
         "endDate": $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD')
     }
-    console.log(data);
-
-    fetch('http://localhost:4000/keywords', {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Select the Topics dropdown
-        var topicsDropdown = document.getElementById('Topic');
-
-        // Clear existing options
-        topicsDropdown.innerHTML = '';
-
-        // Append new options based on the data received
-        data.forEach(item => {
-            var option = document.createElement('option');
-            option.text = item.word;
-            option.value = item.word;
-            topicsDropdown.appendChild(option);
-        });
-
-        // Refresh the selectpicker to update the dropdown
-        $('.selectpicker').selectpicker('refresh');
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
-    // for (var i = 0; i < bodyData["topics"].length; i++) {
-    //     $('#Topic').append('<option data-tokens=' + bodyData["topics"][i] + '>' + bodyData["topics"][i] + '</option>')
-    // }
-
-    // $('#reportrange').daterangepicker({
-    //     minDate: Date(bodyData["startTime"]),
-    //     maxDate: Date(bodyData["endTime"])
-
-    // })
     $('.selectpicker').selectpicker('refresh')
 });
+
+
+$(function() {
+    // Event handler for when the user applies the date range
+    $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        // Extract the start date and end date
+        var startDate = picker.startDate.format('YYYY-MM-DD');
+        var endDate = picker.endDate.format('YYYY-MM-DD');
+        var data = {
+            "startDate": startDate,
+            "endDate": endDate
+        };
+
+        console.log(data);
+
+        fetch('http://localhost:4000/keywords', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            
+        })
+        .then(response => response.json())
+        .then(d => {
+            // Select the Topics dropdown
+            var topicsDropdown = document.getElementById('Topic');
+
+            // Clear existing options
+            topicsDropdown.innerHTML = '';
+
+            // Append new options based on the data received
+            d.forEach(item => {
+                var option = document.createElement('option');
+                option.text = item.word;
+                option.value = item.word;
+                topicsDropdown.appendChild(option);
+            });
+
+            // Refresh the selectpicker to update the dropdown
+            $('.selectpicker').selectpicker('refresh');
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+
+        // You can now use startDate and endDate as needed
+        console.log('Start Date:', startDate);
+        console.log('End Date:', endDate);
+    });
+
+    // Event handler for when the user clears the date range
+    $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+        // Clear the date range
+        $(this).val('');
+    });
+});
+
 
 
 function onEachFeature(feature, layer) {
