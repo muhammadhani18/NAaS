@@ -13,6 +13,8 @@ import (
 	"github.com/rs/cors"
 	"os"
 	"io"
+	"time"
+	"strings"
 )
 
 const (
@@ -102,7 +104,7 @@ func enableCORS(next http.Handler) http.Handler {
 	
 	})
 	
-	}
+}
 
 func main() {
 	fmt.Println("Welcome to building an api inn GOLANG")
@@ -119,6 +121,7 @@ func main() {
 	r.HandleFunc("/getData/{initialData}", getInitialData).Methods("GET")
 	
 	// Post Requests
+	r.HandleFunc("/searchData", searchDataHandler).Methods("POST")
 	r.HandleFunc("/PostedData", PostData).Methods("POST")
 	r.HandleFunc("/keywords", GetKeywords).Methods("POST")
 	
@@ -133,6 +136,137 @@ func main() {
 	log.Fatal(http.ListenAndServe(":4000", handler))
 
 }
+
+type News struct {
+	Header       string    `json:"header"`
+	Category     string    `json:"category"`
+	Link         string    `json:"link"`
+	Topics       []string  `json:"topics"`
+	FocusLocation string   `json:"focus_location"`
+	FocusTime string   `json:"focus_time"`
+	LocationType string    `json:"location_type"`
+	Sentiment    string    `json:"sentiment"`
+	CreationDate time.Time `json:"creation_date"`
+	Province string `json:"province"`
+	District string `json:district`
+}
+type SearchParams struct {
+	CreationDateStart time.Time
+	CreationDateEnd   time.Time
+}
+
+func searchDataHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse request parameters
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+
+	type RequestData struct {
+		CreationDateStart string   `json:"creation_date_start"`
+		CreationDateEnd   string   `json:"creation_date_end"`
+		Keywords          []string `json:"keywords"`
+	}
+
+	var requestData RequestData
+	if err := json.NewDecoder(r.Body).Decode(&requestData); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Connect to the database
+	connStr := "postgres://postgres:1234@localhost/naas?sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	// Construct the SQL query
+	// Construct the SQL query
+	query := `
+	SELECT n.header, n.category, n.link, n.location_type, n.sentiment, n.creation_date, n.province, n.district, n.focus_location, n.focus_time
+	FROM News_Dawn as n 
+	INNER JOIN keywords as k ON n.id = k.dawn_id
+	WHERE n.creation_date >= $1 AND n.creation_date <= $2 AND k.word IN (`
+
+	// Add placeholders for the IN clause
+	placeholders := make([]string, len(requestData.Keywords))
+	for i := range placeholders {
+	placeholders[i] = fmt.Sprintf("$%d", i+3)
+	}
+
+	query += strings.Join(placeholders, ",") + ")"
+	fmt.Println(query)
+
+	// Execute the query
+	args := make([]interface{}, len(requestData.Keywords)+2)
+	args[0] = requestData.CreationDateStart
+	args[1] = requestData.CreationDateEnd
+	for i, keyword := range requestData.Keywords {
+	args[i+2] = keyword
+	}
+
+	rows, err := db.Query(query, args...)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	// Process the result set
+	var newsList []News
+	for rows.Next() {
+		var news News
+		// Scan each row into a News struct
+		err := rows.Scan(&news.Header, &news.Category, &news.Link, &news.LocationType, &news.Sentiment, &news.CreationDate, &news.Province, &news.District, &news.FocusLocation, &news.FocusTime)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		// Append the News struct to the results slice
+		newsList = append(newsList, news)
+	}
+
+	// Check for errors during rows iteration
+	if err := rows.Err(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Convert results to JSON and write response
+	jsonResponse, err := json.Marshal(newsList)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonResponse)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 func sendJSONFileContent(w http.ResponseWriter, r *http.Request) {
     // Open the JSON file
@@ -204,7 +338,7 @@ func GetKeywords(w http.ResponseWriter, r *http.Request) {
 		SELECT k.word
 		FROM keywords AS k
 		INNER JOIN news_dawn AS d ON k.dawn_id = d.id
-		WHERE d.creation_date >= $1 AND d.creation_date <= $2
+		WHERE d.focus_time >= $1 AND d.focus_time <= $2
 	`, startDate, endDate)
 	
 

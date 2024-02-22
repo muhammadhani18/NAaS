@@ -260,6 +260,7 @@ CREATE TABLE keywords (
     dawn_id INT,
     tribune_id INT
 );
+
 -- Insert all entries from all tables into Locations table
 INSERT INTO Locations(name, location_type)
 select name, 'Province' from province;
