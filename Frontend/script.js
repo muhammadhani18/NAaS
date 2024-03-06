@@ -15,8 +15,7 @@ $(function () {
 
 
 $(function () {
-
-    var start = moment().subtract(30, 'days');
+    var start = moment('2023-04-01'); // Set the start date to January 1, 2020
     var end = moment();
 
     function cb(start, end) {
@@ -34,13 +33,25 @@ $(function () {
             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
+        },
+        locale: {
+            format: 'MM/DD/YYYY',
+            separator: ' - ',
+            applyLabel: 'Apply',
+            cancelLabel: 'Cancel',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Custom',
+            weekLabel: 'W',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        },
+        yearRange: '2020:2030' // Limit the year range from 2020 to 2100
     }, cb);
 
     cb(start, end);
-
 });
-
 
 
 function httpGet(theUrl) {
@@ -68,24 +79,6 @@ geoJson = L.geoJson(mapData);
 
 map.fitBounds(geoJson.getBounds())
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     bodyData = httpGet("http://localhost:4000/getData")
-//     bodyData = JSON.parse(bodyData)
-//     console.log(typeof (bodyData), bodyData)
-
-//     for (var i = 0; i < bodyData["locations"].length; i++) {
-//         $('#' + bodyData["locations"][i]["location_type"]).append('<option data-tokens=' + bodyData["locations"][i]["name"] + '>' + bodyData["locations"][i]["name"] + '</option>')
-//     }
-//     for (var i = 0; i < bodyData["topics"].length; i++) {
-//         $('#Topic').append('<option data-tokens=' + bodyData["topics"][i] + '>' + bodyData["topics"][i] + '</option>')
-//     }
-
-//     $('#reportrange').daterangepicker({
-//         minDate: Date(bodyData["startTime"]),
-//         maxDate: Date(bodyData["endTime"])
-
-//     })
-// });
 
 form = document.getElementById('NEWS_form')
 
@@ -109,14 +102,54 @@ form.addEventListener("submit", (e) => {
         "startDate": $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD'),
         "endDate": $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD')
     }
+    keywords_data = {
+        "keywords": $('#Topic').val()
+    }
+    // keywords_data = JSON.stringify(keywords_data);
+    console.log(keywords_data)
+
   
     data = JSON.stringify(data);
-    console.log(data)
     
     if ($('#Source').val() == "") {
         alert("Please select a news source!")
     }
     else {
+        fetch('http://127.0.0.1:5000/receive_json', {
+            method: 'POST', // Assuming you are sending a POST request
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(keywords_data)
+        })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Assuming the response is text/html
+    })
+    .then(htmlContent => {
+        // Create a Blob object from the HTML content
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+
+        // Create a link element
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+
+        // Set the filename for the downloaded file
+        link.download = 'received_data.html';
+
+        // Append the link to the body and trigger the click event
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up by removing the link from the body
+        document.body.removeChild(link);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
         response = JSON.parse(httpGet('http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data)));
         // console.log(response);
         request = 'http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data);
@@ -306,12 +339,20 @@ $('#Source').on('changed.bs.select', function (e) {
 $(function() {
     // Event handler for when the user applies the date range
     $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        
+        if ($('#Source').val() == "") {
+            alert("Please select a news source!")
+        }
+
         // Extract the start date and end date
         var startDate = picker.startDate.format('YYYY-MM-DD');
         var endDate = picker.endDate.format('YYYY-MM-DD');
+        var source = $('#Source').val();
+
         var data = {
             "startDate": startDate,
-            "endDate": endDate
+            "endDate": endDate,
+            "source": source
         };
 
         console.log(data);
@@ -438,7 +479,7 @@ function getSentiment(value) {
 function applyNewsToMap(responseData) {
     // console.log(responseData);
     for (var i = responseData.length - 1; i >= 0; i--) {
-
+        
         areaData = JSON.parse(responseData[i]["coordinates"])
         loc = responseData[i]["focusLocation"]
         if (responseData[i]["focusLocation"] in sentiment_averages) {

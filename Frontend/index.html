@@ -55,13 +55,9 @@
         <form action="#" method="post" id="NEWS_form">
             <div class="form-row">
                 <div class="col">
-                    <select id="Location" class="selectpicker form-control" title="Location" data-live-search="true">
-                        <optgroup id="Province" label="Provinces">
-                        </optgroup>
-                        <optgroup id="District" label="Districts">
-                        </optgroup>
-                        <optgroup id="Tehsil" label="Tehsils">
-                        </optgroup>
+                    <select id="Source" class="selectpicker form-control" title="NEWS Source" data-live-search="true">
+                        <option data-tokens="Dawn">Dawn</option>
+                        <option data-tokens="Tribune">Tribune</option>
                     </select>
                 </div>
                 <div class="col">
@@ -74,12 +70,6 @@
                 <div class="col">
                     <select id="Topic" class="selectpicker form-control" title="Topics" data-live-search="true"
                         multiple>
-                    </select>
-                </div>
-                <div class="col">
-                    <select id="Source" class="selectpicker form-control" title="NEWS Source" data-live-search="true">
-                        <option data-tokens="Dawn">Dawn</option>
-                        <option data-tokens="Tribune">Tribune</option>
                     </select>
                 </div>
                 <button class="btn  btn-success" type="submit_btn" id="submit">Find NEWS</button>
