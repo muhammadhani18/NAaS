@@ -444,8 +444,8 @@ class parser():
 
     def saveToDatabase(self, row):
         # Connect to postgres database
-        conn = pg.connect(database="NAaaS", user="postgres",
-                        password="1234", host="127.0.0.1", port="8008")
+        conn = pg.connect(database="naas", user="postgres",
+                        password="1234", host="host.docker.internal", port="5432")
         cursor = conn.cursor()
 
             # Check if focus location is a province, then insert with district, tehsil, union council as NULL
@@ -514,25 +514,29 @@ class parser():
 
 
 
+
 def main():
     # Instantiate parser object
     Parser = parser()
     # Find spark library to automatically find and start the Spark instance that is installed on the system, 
     # without having to manually specify the path to the Spark home directory
     # Create the spark session to connect to the Spark runtime
-    spark = SparkSession.builder.appName("NAaaS").getOrCreate()
+    spark = SparkSession.builder.appName("NAAAS").getOrCreate()
     filename = r'islamabad.csv'
     # Read our file which holds the NEWS
     df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
     # Convert dataframe to RDD
     rows = df.to_dict('records')
-
-    rdd = spark.sparkContext.parallelize(rows)
+    # Convert list of dictionaries to DataFrame
+    df = spark.createDataFrame(rows)
+    # Parallelize the DataFrame
+    rdd = df.rdd
     # Run the information extractor function on each element of RDD
     result = rdd.map(Parser.informationExtractor)
     # Print final result
     print(result.collect())
-    # print(rows)
+    # Stop the SparkContext
     spark.stop()
 
 main()
+

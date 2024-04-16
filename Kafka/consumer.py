@@ -34,9 +34,9 @@ class Consumer():
             print("Starting Spark Execution")
             print("============================================================")
             os.system("sudo docker cp -L received_file.csv spark_spark-master_1:/opt/bitnami/spark/islamabad.csv")
-            # os.system("sudo docker cp -L received_file.csv sparktest_spark-worker-1_1:/opt/bitnami/spark/islamabad.csv")
+            # os.system("sudo docker cp -L received_file.csv spark_spark-worker-1_1:/opt/bitnami/spark/islamabad.csv")
             # os.system("sudo docker cp -L received_file.csv sparktest_spark-worker-2_1:/opt/bitnami/spark/islamabad.csv")
-            os.system("sudo docker exec spark_spark-master_1 spark-submit --master spark://172.19.0.2:7077 ./data/Parser/parser.py")
+            os.system("sudo docker exec spark_spark-master_1 spark-submit --master spark://172.19.0.2:7077 ./data/Spark/distributedParser.py")
             print("============================================================")
             print("End of Spark Execution for iteration # ",count)
             print("============================================================")
@@ -48,5 +48,4 @@ def main():
     cons_obj.Receive()
 
 if __name__ == "__main__":
-    print("hello")
     main()

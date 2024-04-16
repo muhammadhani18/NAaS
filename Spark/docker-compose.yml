@@ -6,6 +6,7 @@ services:
     command: bin/spark-class org.apache.spark.deploy.master.Master
     volumes:
       - "../:/opt/bitnami/spark/data"
+    # network_mode: host
     ports:
       - "9090:8080"
       - "7077:7077"

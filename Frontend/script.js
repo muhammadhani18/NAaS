@@ -87,15 +87,14 @@ var response;
 var response2;
 var interval;
 var popup;
-
+var keywords_global;
 
 
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    // console.log(form)
-    // let formData = new FormData(form);
-    // console.log(formData);
+    
+
     data = {
         "location": $('#Location').val(),
         "topics": $('#Topic').val(),
@@ -105,57 +104,24 @@ form.addEventListener("submit", (e) => {
     keywords_data = {
         "keywords": $('#Topic').val()
     }
-    // keywords_data = JSON.stringify(keywords_data);
-    console.log(keywords_data)
+    keywords_global = keywords_data;
 
-  
+   
+   
+    
+    sessionStorage.setItem("keywords", JSON.stringify(keywords_data))
+
+
     data = JSON.stringify(data);
     
     if ($('#Source').val() == "") {
         alert("Please select a news source!")
     }
-    else {
-        fetch('http://127.0.0.1:5000/receive_json', {
-            method: 'POST', // Assuming you are sending a POST request
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(keywords_data)
-        })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text(); // Assuming the response is text/html
-    })
-    .then(htmlContent => {
-        // Create a Blob object from the HTML content
-        const blob = new Blob([htmlContent], { type: 'text/html' });
-
-        // Create a link element
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-
-        // Set the filename for the downloaded file
-        link.download = 'received_data.html';
-
-        // Append the link to the body and trigger the click event
-        document.body.appendChild(link);
-        link.click();
-
-        // Clean up by removing the link from the body
-        document.body.removeChild(link);
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
-
-        response = JSON.parse(httpGet('http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data)));
+    response = JSON.parse(httpGet('http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data)));
         // console.log(response);
         request = 'http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data);
         changeMap(response);
         interval = setInterval(liveNewsUpdate, 5000);
-    }
 
 })
 
@@ -202,6 +168,7 @@ function liveNewsUpdate() {
             .openOn(map);
     }
 }
+
 
 
 const colors = {

@@ -178,6 +178,8 @@ select province,
    coordinates
 from district
 where name = 'KARACHI CENTRAL';
+
+
 CREATE TABLE tehsil(
    id serial,
    name VARCHAR(50) PRIMARY KEY,
@@ -187,6 +189,8 @@ CREATE TABLE tehsil(
 );
 COPY tehsil(district, name, coordinates)
 FROM './tehsil.csv' DELIMITER ',' CSV HEADER;
+
+
 CREATE TABLE union_council(
    id serial,
    name VARCHAR(50) PRIMARY KEY,

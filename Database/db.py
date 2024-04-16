@@ -3,7 +3,7 @@ import psycopg2 as pg
 import json
 import time
 
-file = open(r"/home/pcn/Desktop/NAaaS/Parser/results2.json")
+file = open(r"/home/pcn/Desktop/NAaaS/Parser/data_news.json")
 
 data = json.load(file)
 
@@ -56,5 +56,4 @@ for row in data:
                     else:
                         cursor.execute("Insert into NEWS_Dawn(header, summary, details, focus_time, focus_location, link, category, province, district, tehsil, topics, location_type, sentiment, creation_date) VALUES( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
                                    (row["Header"]["Text"], row["Summary"]["Text"], row["Details"]["Text"], row["focusTime"], row["focusLocation"].upper(), row["Link"], row["Category"],  district[1], district[0], tehsil[0], row["topics"], "Tehsil", row["sentiment"], row["CreationDate"]))
-    conn.commit()
-    # time.sleep(5)      
+    conn.commit()    

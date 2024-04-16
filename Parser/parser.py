@@ -36,6 +36,9 @@ nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
 class parser():
     def __init__(self):
         self.index = {}
+        self.city = ""
+        self.Data_of_region = {}
+        self.cities = {}
 
     # Function to clean the string
     def clean(self, doc):
@@ -422,14 +425,19 @@ def main():
         fileName = path.name[:-4]
         print("FILENAME: ",fileName)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
+        # Fill NaN values with "No data"
+        df.fillna("No data", inplace=True)  # Replace NaN with "No data"
         # df['Creation_Date'] = path.parent.name
         print("Now parsing", filename)
         li.append(df)
-        df = pd.concat(li, axis=0, ignore_index=True)
-        # Create a major dataframe
+    print("REPLACING NAN VALUES")
+    df.fillna(value=np.nan, inplace=True)
     
-    print("HHHHHHHHHHHHHHHHELLLO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")    
+    # No need to drop rows with NaN values since we've filled them
+    # df.dropna(inplace=True)
+    
     for i in range(len(df)):
+        print("ITER")
         results = dict()
         # Extract focus location
         city = Parser.read(df.loc[i])
@@ -445,7 +453,11 @@ def main():
             jsonObject.append(deepcopy(results))
         else:
             continue
-    with open("results.json", "w") as file:
+    
+    print("ENTERING DATA INTO JSON FILE. ")
+    print(f"JSON DUMP: {jsonObject}")
+    with open("./data/Parser/data_news.json", "w") as file:
         json.dump(jsonObject, file, indent=4)
+
 
 main()
