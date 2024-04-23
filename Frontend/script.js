@@ -120,6 +120,7 @@ form.addEventListener("submit", (e) => {
     response = JSON.parse(httpGet('http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data)));
         // console.log(response);
         request = 'http://localhost:4000/Search' + $('#Source').val() + '/' + encodeURIComponent(data);
+        
         changeMap(response);
         interval = setInterval(liveNewsUpdate, 5000);
 

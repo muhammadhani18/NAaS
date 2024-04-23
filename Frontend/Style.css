@@ -28,3 +28,30 @@
     position: fixed;
     overflow-y: scroll;
 }
+.spinner-border {
+    border-width: 0.5em; /* Adjust the thickness as needed */
+    margin-left: 50px;
+}
+
+.skeleton-loading {
+    height: 20px; /* Adjust the height of each skeleton element */
+    margin-bottom: 10px; /* Adjust the margin between each skeleton element */
+    background-color: #f0f0f0; /* Adjust the background color of the skeleton elements */
+    border-radius: 4px; /* Adjust the border radius of the skeleton elements */
+}
+
+/* Optional animation for a shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px;
+    }
+    100% {
+        background-position: 1000px;
+    }
+}
+
+.skeleton-loading {
+    animation: shimmer 1s infinite linear;
+    background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+    background-size: 1000px 100%;
+}
