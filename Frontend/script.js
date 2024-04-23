@@ -347,6 +347,12 @@ $(function() {
 
             // Refresh the selectpicker to update the dropdown
             $('.selectpicker').selectpicker('refresh');
+            // $('#Topic option:first-child').attr('selected', 'selected');
+
+            $('#Topic option:first').prop('selected', true);
+            $('#Topic').selectpicker('refresh');
+
+
         })
         .catch(error => {
             console.error('Error fetching data:', error);

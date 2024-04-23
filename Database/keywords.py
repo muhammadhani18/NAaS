@@ -1,6 +1,6 @@
 import psycopg2
 import sys
-sys.path.append('/home/pcn/Desktop/NAaaS/know')
+sys.path.append('/home/pcn/Desktop/NAaS/know')
 from news_graph import NewsMining
 
 # Initialize NewsMining

@@ -1,12 +1,5 @@
 import psycopg2
 
-# PostgreSQL connection information
-dbname = 'your_database_name'
-user = 'your_username'
-password = 'your_password'
-host = 'your_host'
-port = 'your_port'
-
 # Connect to the PostgreSQL database
 try:
     connection = psycopg2.connect(
@@ -57,6 +50,7 @@ try:
 
 
     dawn_word_list = cursor.fetchall()
+    print(dawn_word_list)
 
     for dawn_id, word in dawn_word_list:
         # Update the News_Dawn table with the extracted word

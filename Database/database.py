@@ -3,13 +3,13 @@ import pandas as pd
 import psycopg2 as pg
 
 # Read data from files
-df = pd.read_csv("../Parser/Results.csv")
+df = pd.read_csv("/home/pcn/Desktop/NAaS/Parser/Results.csv")
 # Delete the creationdate column as we have no use
 del df["CreationDate"]
 
 # Connect to postgres database
-conn = pg.connect(database="NAaaS", user="postgres",
-                  password="1234", host="127.0.0.1", port="8008")
+conn = pg.connect(database="naas", user="postgres",
+                  password="1234", host="127.0.0.1", port="5432")
 cursor = conn.cursor()
 
 # For each row in the dataframe, insert into database
