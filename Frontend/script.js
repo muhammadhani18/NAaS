@@ -506,11 +506,11 @@ function applyNewsToMap(responseData) {
             $('#newscards').prepend(`<div class="card"> 
                 <div class="card-header">`+ responseData[i]["focusLocation"] + `</div>
                 <div class="card-body">
-                <h5 class="card-title">`+ responseData[i]["header"] + `</h5>
+                <h5 class="card-title"><a target="_blank" href="`+ responseData[i]["link"] + `" class="card-link">`+ responseData[i]["header"] + `</a></h5>
                 <p class="card-text">Focus Time: `+ responseData[i]["focusTime"] + `</p>
             <p class="card-text">Creation Date: `+ response[i]["creationDate"] + `</p>
                 <p class="card-text">Categories: `+ String(responseData[i]["topics"]) + `</p>
-                <a target="_blank" href="`+ responseData[i]["link"] + `" class="card-link">NEWS Link </a>
+               
 
                 </div>
                 </div>
