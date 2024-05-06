@@ -28,8 +28,8 @@ from sklearn.decomposition import LatentDirichletAllocation
 
 from textblob import TextBlob
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import nltk
-nltk.download('vader_lexicon')
+
+
 nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
 
 # Main parser class that handles all the information extraction
@@ -219,7 +219,7 @@ class parser():
     def Get_location(self, read_more, header):
         if len(self.index) <= 0:
             # Loading data set of ECP Election commission of Pakistan 
-            self.load_cities("/opt/bitnami/spark/data/Spark/Alldata_refined.csv")
+            self.load_cities("Alldata_refined.csv")
         # Clean header of news
         header = self.clean(header)
         # Split header
@@ -307,7 +307,7 @@ class parser():
         self.city = max(cities, key=cities.get, default="null")
         if self.city == 0:
             print(cities)
-        df = pd.read_csv("/opt/bitnami/spark/data/Spark/Alldata_refined.csv")
+        df = pd.read_csv("Alldata_refined.csv")
         # Droping NULL rows
         df = df.dropna()
         # Extracting location col
@@ -414,26 +414,18 @@ def main():
     li = []
     jsonObject = []
     Parser = parser()
-
-    df = pd.DataFrame()
     # Read files one by one
-    for filename in glob.iglob(r'/opt/bitnami/spark/data/Scrapper/2024/**/*.csv', recursive=True):
+    for filename in glob.iglob(r'..\Scrapper\2023\**\*.csv', recursive=True):
         # C:\Danyal\Work\FAST\Semester 8\Final Year Project - II\Project\NAaaS\Scrapper\Tribune\2023\2023-04-11\international.csv
         # ..\Scrapper\Tribune\2023\**\*.csv
         path = pathlib.PurePath(filename)
-        print(f"FILENAME: {filename}")
-
         fileName = path.name[:-4]
-        print(fileName)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
         # df['Creation_Date'] = path.parent.name
         print("Now parsing", filename)
         li.append(df)
         df = pd.concat(li, axis=0, ignore_index=True)
         # Create a major dataframe
-    
-    print(f"hello: {len(df)}")
-
     for i in range(len(df)):
         results = dict()
         # Extract focus location
@@ -450,8 +442,7 @@ def main():
             jsonObject.append(deepcopy(results))
         else:
             continue
-
-    with open("/opt/bitnami/spark/data/Parser/results4.json", "w") as file:
+    with open("results3.json", "w") as file:
         json.dump(jsonObject, file, indent=4)
 
 main()

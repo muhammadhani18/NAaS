@@ -4,7 +4,7 @@ import psycopg2 as pg
 import json
 import time
 
-file = open(r"/home/pcn/Desktop/NAaS/Parser/data_news.json")
+file = open(r"/home/pcn/Desktop/NAaS/Parser/results4.json")
 
 data = json.load(file)
 # print(data)

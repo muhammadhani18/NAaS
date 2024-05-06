@@ -413,14 +413,12 @@ class parser():
 
 
 def main():
-    # Instantiate SUTime and Parser
     li = []
     jsonObject = []
     Parser = parser()
     # Read files one by one
     for filename in glob.iglob(r'/opt/bitnami/spark/data/Scrapper/2024/**/*.csv', recursive=True):
-        # C:\Danyal\Work\FAST\Semester 8\Final Year Project - II\Project\NAaaS\Scrapper\Tribune\2023\2023-04-11\international.csv
-        # ..\Scrapper\Tribune\2023\**\*.csv
+        
         path = pathlib.PurePath(filename)
         fileName = path.name[:-4]
         print("FILENAME: ",fileName)
@@ -456,8 +454,7 @@ def main():
     
     print("ENTERING DATA INTO JSON FILE. ")
     print(f"JSON DUMP: {jsonObject}")
-    with open("./data/Parser/data_news.json", "w") as file:
+    with open("./data/Parser/data_news2.json", "w") as file:
         json.dump(jsonObject, file, indent=4)
-
 
 main()
