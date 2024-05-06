@@ -15,7 +15,7 @@ $(function () {
 
 
 $(function () {
-    var start = moment('2023-04-01'); // Set the start date to January 1, 2020
+    var start = moment('2024-04-01'); // Set the start date to January 1, 2020
     var end = moment();
 
     function cb(start, end) {
