@@ -421,13 +421,15 @@ def main():
         
         path = pathlib.PurePath(filename)
         fileName = path.name[:-4]
-        print("FILENAME: ",fileName)
+        # print("FILENAME: ",fileName)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
         # Fill NaN values with "No data"
         df.fillna("No data", inplace=True)  # Replace NaN with "No data"
         # df['Creation_Date'] = path.parent.name
-        print("Now parsing", filename)
+        # print("Now parsing", filename)
         li.append(df)
+        # df = pd.concat(li, axis=0, ignore_index=True)
+        
     print("REPLACING NAN VALUES")
     df.fillna(value=np.nan, inplace=True)
     
@@ -452,9 +454,9 @@ def main():
         else:
             continue
     
-    print("ENTERING DATA INTO JSON FILE. ")
     print(f"JSON DUMP: {jsonObject}")
-    with open("./data/Parser/data_news2.json", "w") as file:
+    print("ENTERING DATA INTO JSON FILE. ")
+    with open("./data/Parser/march.json", "a") as file:
         json.dump(jsonObject, file, indent=4)
 
 main()

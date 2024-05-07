@@ -173,11 +173,13 @@ function liveNewsUpdate() {
 
 
 const colors = {
-    "Province": "#EFF306",
+    "Province": "#ea3636",
     "District": "#05579B",
     "Tehsil": "#74079A"
 
 }
+
+
 
 const sentiments = {
     "positive": "#05B1BF",
@@ -405,25 +407,25 @@ legend.onAdd = function (map) {
 legend.addTo(map);
 
 
-var legend2 = L.control({ position: 'topright' });
-legend2.onAdd = function (map) {
+// var legend2 = L.control({ position: 'topright' });
+// legend2.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend');
-    labels = ['<em>Sentiment</em>'],
-        categories = ['positive', 'neutral', 'negative'];
+//     var div = L.DomUtil.create('div', 'info legend');
+//     labels = ['<em>Sentiment</em>'],
+//         categories = ['positive', 'neutral', 'negative'];
 
-    for (var i = 0; i < categories.length; i++) {
+//     for (var i = 0; i < categories.length; i++) {
 
-        div.innerHTML +=
-            labels.push(
-                '<i class="circle" style="background:' + sentiments[categories[i]] + '"></i> ' +
-                (categories[i] ? categories[i] : '+'));
+//         div.innerHTML +=
+//             labels.push(
+//                 '<i class="circle" style="background:' + sentiments[categories[i]] + '"></i> ' +
+//                 (categories[i] ? categories[i] : '+'));
 
-    }
-    div.innerHTML = labels.join('<br>');
-    return div;
-};
-legend2.addTo(map);
+//     }
+//     div.innerHTML = labels.join('<br>');
+//     return div;
+// };
+// legend2.addTo(map);
 
 
 
@@ -492,11 +494,11 @@ function applyNewsToMap(responseData) {
                 <img src="`+ responseData[i]["picture"] + `" class="card-img-top"> 
                 <div class="card-header">`+ responseData[i]["focusLocation"] + `</div>
                 <div class="card-body">
-                <h5 class="card-title">`+ responseData[i]["header"] + `</h5>
+                <h5 class="card-title"><a target="_blank" href="`+ responseData[i]["link"] + `" class="card-link">`+ responseData[i]["header"] + `</a></h5>
                 <p class="card-text">Focus Time: `+ responseData[i]["focusTime"] + `</p>
             <p class="card-text">Creation Date: `+ response[i]["creationDate"] + `</p>
                 <p class="card-text">Categories: `+ String(responseData[i]["topics"]) + `</p>
-                <a target="_blank" href="`+ responseData[i]["link"] + `" class="card-link">NEWS Link </a>
+                
 
                 </div>
                 </div>
@@ -509,7 +511,7 @@ function applyNewsToMap(responseData) {
                 <h5 class="card-title"><a target="_blank" href="`+ responseData[i]["link"] + `" class="card-link">`+ responseData[i]["header"] + `</a></h5>
                 <p class="card-text">Focus Time: `+ responseData[i]["focusTime"] + `</p>
             <p class="card-text">Creation Date: `+ response[i]["creationDate"] + `</p>
-                <p class="card-text">Categories: `+ String(responseData[i]["topics"]) + `</p>
+                <p class="card-text">Topics: `+ String(responseData[i]["topics"]) + `</p>
                
 
                 </div>

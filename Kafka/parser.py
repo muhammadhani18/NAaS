@@ -16,7 +16,7 @@ from fuzzywuzzy import fuzz
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from nltk.stem.wordnet import WordNetLemmatizer
-
+import nltk
 nltk.download('vader_lexicon')
 
 nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
