@@ -4,6 +4,7 @@ It also contains the driver class that runs our information extraction module.
 Spark uses this file to distribute workload over its workers
 '''
 # Importing modules for Temporal extraction 
+from pickle import TRUE
 from nltk.stem.wordnet import WordNetLemmatizer
 import spacy
 from fuzzywuzzy import fuzz
@@ -220,6 +221,8 @@ class parser():
 
     # FGet location from the extracted news 
     def Get_location(self, read_more, header):
+        # flag = False
+       
         if len(self.index) <= 0:
             # Loading data set of ECP Election commission of Pakistan 
             self.load_cities("/opt/bitnami/spark/data/Parser/Alldata_refined.csv")
@@ -229,6 +232,7 @@ class parser():
         header = header.split()
         # Generate sentences from the article  
         text = self.sentences(self.clean(read_more))
+        flag = False
         # Dictionary to store the City counts from news
         cities = dict()
         for i in text:
@@ -280,7 +284,7 @@ class parser():
                                 else:
                                     city = previous
                         # Check if the extracted location has any match with the header
-                        if flag:
+                        if flag == True:
                             match = False
                             word1 = ""
                             word2 = ""
@@ -305,6 +309,7 @@ class parser():
                                 else:
                                     cities.__setitem__(city, 1)
                 except:
+                    # print("entering exception")
                     continue
         # Extract the maximum count which will represent the focused locaiton of the news
         self.city = max(cities, key=cities.get, default="null")
@@ -421,23 +426,20 @@ def main():
         
         path = pathlib.PurePath(filename)
         fileName = path.name[:-4]
-        # print("FILENAME: ",fileName)
+
+        # print("FILENAME: ",filename)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
         # Fill NaN values with "No data"
         df.fillna("No data", inplace=True)  # Replace NaN with "No data"
         # df['Creation_Date'] = path.parent.name
         # print("Now parsing", filename)
         li.append(df)
-        # df = pd.concat(li, axis=0, ignore_index=True)
+
+        df = pd.concat(li, axis=0, ignore_index=True)
         
-    print("REPLACING NAN VALUES")
-    df.fillna(value=np.nan, inplace=True)
-    
-    # No need to drop rows with NaN values since we've filled them
-    # df.dropna(inplace=True)
-    
+    print(df)
     for i in range(len(df)):
-        print("ITER")
+        # print("ITER")
         results = dict()
         # Extract focus location
         city = Parser.read(df.loc[i])
@@ -456,7 +458,7 @@ def main():
     
     print(f"JSON DUMP: {jsonObject}")
     print("ENTERING DATA INTO JSON FILE. ")
-    with open("./data/Parser/march.json", "a") as file:
+    with open("./data/Parser/data.json", "w") as file:
         json.dump(jsonObject, file, indent=4)
 
 main()

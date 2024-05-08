@@ -27,6 +27,7 @@ class TimeTag:
         self.date = date
         self.count = count
         self.weight = count
+        self.flag = False
 
     def __repr__(self):
         return f'date: {self.date}, weight: {self.weight}, count: {self.count}'
@@ -161,12 +162,14 @@ class parser():
         return tags
 
     def Get_location(self, read_more, header):
-        if len(self.index) <= 0:
-            self.load_cities("Alldata_refined.csv")
         header = self.clean(header)
         header = header.split()
         text = self.sentences(self.clean(read_more))
         cities = dict()
+        
+
+        if len(self.index) <= 0:
+            self.load_cities("Alldata_refined.csv")
         for i in text:
             doc = nlp(i)
             jump = 0
@@ -176,7 +179,7 @@ class parser():
                         continue
                     jump = 0
                     if doc[token].pos_ == "PROPN":
-                        flag = False
+                        self.flag = False
                         end = self.index[doc[token].text.lower()[0]]
                         if end == self.index['a']:
                             start = 0
@@ -199,11 +202,11 @@ class parser():
                                 city = ' '.join(checker)
                                 if len(previous) < len(city): 
                                     area_count = len(checker)
-                                    flag = True
+                                    self.flag = True
                                     previous = city
                                 else:
                                     city = previous
-                        if flag:
+                        if self.flag:
                             match = False
                             word1 = ""
                             word2 = ""
@@ -234,15 +237,15 @@ class parser():
         df["Locations"] = df["Locations"].apply(lambda x: x.upper())
         if df[df["Locations"] == self.city.upper()].empty:
             if self.city != "null":
-                flag = False
+                self.flag = False
                 cityList = sorted(((v,k) for k,v in cities.items()), reverse=True)
                 for city in cityList:
                     if df[df["Locations"] == city[1].upper()].empty == False:
                         self.city = city[1]
-                        flag = True
+                        self.flag = True
                         break
             
-            if flag == False: 
+            if self.flag == False: 
                 self.city = "null"
         self.cities = cities
 

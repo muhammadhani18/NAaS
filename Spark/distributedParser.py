@@ -16,6 +16,7 @@ from pyspark.sql import *
 from pyspark import *
 from dateparser.search import search_dates
 # from timetag import TimeTag
+import sklearn 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
 from sklearn.decomposition import LatentDirichletAllocation
@@ -72,6 +73,7 @@ class parser():
     # Function to clean the string
     def clean(self, doc):
         # Convert all alphabets to lower case
+        
         doc = doc.lower()
         # Loading string in to nlp model 
         doc = nlp(doc)
@@ -250,7 +252,7 @@ class parser():
         if len(self.index) <= 0:
             # Loading data set of ECP Election commission of Pakistan
             # file_path = os.getcwd() + "/alldata_refined.csv" 
-            file_path = "/opt/bitnami/spark/alldata_refined.csv" 
+            file_path = "../Spark/Alldata_refined.csv" 
             self.load_cities(file_path)
         # Clean header of news
         header = self.clean(header)
@@ -340,7 +342,7 @@ class parser():
         if self.city == 0:
             print(cities)
         # file_path = os.getcwd() + "/alldata_refined.csv"
-        file_path = "/opt/bitnami/spark/alldata_refined.csv"
+        file_path = "../Spark/Alldata_refined.csv"
         df = pd.read_csv(file_path)
         # Droping NULL rows
         df = df.dropna()
@@ -445,7 +447,7 @@ class parser():
     def saveToDatabase(self, row):
         # Connect to postgres database
         conn = pg.connect(database="naas", user="postgres",
-                        password="1234", host="host.docker.internal", port="5432")
+                        password="1234", host="localhost", port="5432")
         cursor = conn.cursor()
 
             # Check if focus location is a province, then insert with district, tehsil, union council as NULL
@@ -522,7 +524,7 @@ def main():
     # without having to manually specify the path to the Spark home directory
     # Create the spark session to connect to the Spark runtime
     spark = SparkSession.builder.appName("NAAAS").getOrCreate()
-    filename = r'islamabad.csv'
+    filename = r'../Scrapper/2024/2024-04-14/back.csv'
     # Read our file which holds the NEWS
     df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
     # Convert dataframe to RDD

@@ -4,6 +4,7 @@ It also contains the driver class that runs our information extraction module.
 Spark uses this file to distribute workload over its workers
 '''
 # Importing modules for Temporal extraction 
+from pickle import TRUE
 from nltk.stem.wordnet import WordNetLemmatizer
 import spacy
 from fuzzywuzzy import fuzz
@@ -36,6 +37,9 @@ nlp = spacy.load('en_core_web_sm', disable=['ner', 'textcat'])
 class parser():
     def __init__(self):
         self.index = {}
+        self.city = ""
+        self.Data_of_region = {}
+        self.cities = {}
 
     # Function to clean the string
     def clean(self, doc):
@@ -217,9 +221,11 @@ class parser():
 
     # FGet location from the extracted news 
     def Get_location(self, read_more, header):
+        # flag = False
+       
         if len(self.index) <= 0:
             # Loading data set of ECP Election commission of Pakistan 
-            self.load_cities("/opt/bitnami/spark/data/Spark/Alldata_refined.csv")
+            self.load_cities("./Alldata_refined.csv")
         # Clean header of news
         header = self.clean(header)
         # Split header
@@ -228,6 +234,7 @@ class parser():
         text = self.sentences(self.clean(read_more))
         # Dictionary to store the City counts from news
         cities = dict()
+        flag = False
         for i in text:
             # For each sentence in the article load it in nlp model
             doc = nlp(i)
@@ -277,7 +284,7 @@ class parser():
                                 else:
                                     city = previous
                         # Check if the extracted location has any match with the header
-                        if flag:
+                        if flag == True:
                             match = False
                             word1 = ""
                             word2 = ""
@@ -302,12 +309,13 @@ class parser():
                                 else:
                                     cities.__setitem__(city, 1)
                 except:
+                    # print("entering exception")
                     continue
         # Extract the maximum count which will represent the focused locaiton of the news
         self.city = max(cities, key=cities.get, default="null")
         if self.city == 0:
             print(cities)
-        df = pd.read_csv("/opt/bitnami/spark/data/Spark/Alldata_refined.csv")
+        df = pd.read_csv("./Alldata_refined.csv")
         # Droping NULL rows
         df = df.dropna()
         # Extracting location col
@@ -410,31 +418,28 @@ class parser():
 
 
 def main():
-    # Instantiate SUTime and Parser
     li = []
     jsonObject = []
     Parser = parser()
-
-    df = pd.DataFrame()
     # Read files one by one
-    for filename in glob.iglob(r'/opt/bitnami/spark/data/Scrapper/2024/**/*.csv', recursive=True):
-        # C:\Danyal\Work\FAST\Semester 8\Final Year Project - II\Project\NAaaS\Scrapper\Tribune\2023\2023-04-11\international.csv
-        # ..\Scrapper\Tribune\2023\**\*.csv
+    for filename in glob.iglob(r'../Scrapper/2024/**/*.csv', recursive=True):
+        
         path = pathlib.PurePath(filename)
-        print(f"FILENAME: {filename}")
-
         fileName = path.name[:-4]
-        print(fileName)
+
+        # print("FILENAME: ",filename)
         df = pd.read_csv(filename, index_col=None, header=0, dtype="string")
+        # Fill NaN values with "No data"
+        df.fillna("No data", inplace=True)  # Replace NaN with "No data"
         # df['Creation_Date'] = path.parent.name
-        print("Now parsing", filename)
+        # print("Now parsing", filename)
         li.append(df)
+
         df = pd.concat(li, axis=0, ignore_index=True)
-        # Create a major dataframe
-    
-    print(f"hello: {len(df)}")
+        
 
     for i in range(len(df)):
+        # print("ITER")
         results = dict()
         # Extract focus location
         city = Parser.read(df.loc[i])
@@ -450,8 +455,10 @@ def main():
             jsonObject.append(deepcopy(results))
         else:
             continue
-
-    with open("/opt/bitnami/spark/data/Parser/results4.json", "w") as file:
+    
+    print(f"JSON DUMP: {jsonObject}")
+    print("ENTERING DATA INTO JSON FILE. ")
+    with open("./data.json", "w") as file:
         json.dump(jsonObject, file, indent=4)
 
 main()
