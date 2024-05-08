@@ -104,13 +104,13 @@ form.addEventListener("submit", (e) => {
     keywords_data = {
         "keywords": $('#Topic').val()
     }
+    var date = {
+        "startDate": $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD'),
+        "endDate": $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD')
+    }
     keywords_global = keywords_data;
-
-   
-   
-    
+    sessionStorage.setItem("date", JSON.stringify(date))
     sessionStorage.setItem("keywords", JSON.stringify(keywords_data))
-
 
     data = JSON.stringify(data);
     
