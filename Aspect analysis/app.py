@@ -1,4 +1,5 @@
 import keyword
+import json
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
 from textblob import TextBlob
@@ -17,8 +18,10 @@ conn = pg.connect(database="naas", user="postgres",
                   password="1234", host="127.0.0.1", port="5432")
 
 # Read data from news_dawn table
-df = pd.read_sql_query("select * from news_dawn", conn)
 global keywords
+global date
+
+df = pd.read_sql_query("select * from news_dawn", conn)
 
 # Assuming 'creation_date' is in datetime format, if not, convert it to datetime
 df['creation_date'] = pd.to_datetime(df['creation_date'], errors='coerce')
@@ -45,17 +48,23 @@ sentiment_timelines = {}
 @cross_origin()
 def plot_sentiment():
     keywords = request.json['keywords']
+    date = json.loads(request.json['date'])
+    start_date = datetime.strptime(date['startDate'], '%Y-%m-%d')
+    end_date = datetime.strptime(date['endDate'], '%Y-%m-%d')
     print(f"KEYWORDS: {keywords}")
-   
-
     for aspect in keywords:
         aspect_df = df[df['CombinedText'].str.contains(aspect, case=False)]
         if not aspect_df.empty:
-            sentiment_timeline = aspect_df.groupby(by=df['creation_date'].dt.date)['CombinedText'].apply(lambda x: x.apply(get_sentiment).mean())
+            # Filter creation dates between start and end dates
+            aspect_df = aspect_df[(aspect_df['creation_date'] >= start_date) & (aspect_df['creation_date'] <= end_date)]
+            # Group by creation date and compute sentiment
+            sentiment_timeline = aspect_df.groupby(by=aspect_df['creation_date'].dt.date)['CombinedText'].apply(lambda x: x.apply(get_sentiment).mean())
+            # Sort by creation date
+            sentiment_timeline = sentiment_timeline.sort_index()
             sentiment_timelines[aspect] = sentiment_timeline
+            print(sentiment_timelines)
 
     plot_data = []
-    # keywords=['PPP', 'the National Assembly', 'ISLAMABAD', 'the Election Commission']
     for keyword in keywords:
         if keyword in sentiment_timelines:
             x_values = list(sentiment_timelines[keyword].index)

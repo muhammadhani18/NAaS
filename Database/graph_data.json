@@ -1,19 +1,7 @@
 {
   "nodes": [
     {
-      "from": 0,
-      "label": "",
-      "to": 19,
-      "category": "keyword"
-    },
-    {
       "from": 76,
-      "label": "",
-      "to": 19,
-      "category": "keyword"
-    },
-    {
-      "from": 4,
       "label": "",
       "to": 19,
       "category": "keyword"
@@ -25,31 +13,43 @@
       "category": "keyword"
     },
     {
-      "from": 68,
+      "from": 80,
       "label": "",
       "to": 19,
       "category": "keyword"
     },
     {
-      "from": 66,
+      "from": 82,
       "label": "",
       "to": 19,
       "category": "keyword"
     },
     {
-      "from": 70,
+      "from": 8,
       "label": "",
       "to": 19,
       "category": "keyword"
     },
     {
-      "from": 72,
+      "from": 10,
+      "label": "",
+      "to": 19,
+      "category": "keyword"
+    },
+    {
+      "from": 12,
       "label": "",
       "to": 19,
       "category": "keyword"
     },
     {
       "from": 78,
+      "label": "",
+      "to": 19,
+      "category": "keyword"
+    },
+    {
+      "from": 84,
       "label": "",
       "to": 19,
       "category": "keyword"
@@ -61,190 +61,208 @@
       "category": "keyword"
     },
     {
-      "from": 72,
+      "from": 74,
       "label": "",
-      "to": 21,
-      "category": "related"
+      "to": 39,
+      "category": "frequency"
     },
     {
-      "from": 22,
+      "from": 76,
       "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
       "from": 24,
       "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
-      "from": 66,
+      "from": 73,
       "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
-      "from": 68,
+      "from": 28,
       "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
-      "from": 70,
+      "from": 71,
       "label": "",
-      "to": 41,
-      "category": "frequency"
-    },
-    {
-      "from": 72,
-      "label": "",
-      "to": 41,
-      "category": "frequency"
-    },
-    {
-      "from": 74,
-      "label": "",
-      "to": 41,
-      "category": "frequency"
-    },
-    {
-      "from": 76,
-      "label": "",
-      "to": 41,
-      "category": "frequency"
-    },
-    {
-      "from": 38,
-      "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
       "from": 78,
       "label": "",
-      "to": 41,
+      "to": 39,
       "category": "frequency"
     },
     {
+      "from": 80,
+      "label": "",
+      "to": 39,
+      "category": "frequency"
+    },
+    {
+      "from": 82,
+      "label": "",
+      "to": 39,
+      "category": "frequency"
+    },
+    {
+      "from": 84,
+      "label": "",
+      "to": 39,
+      "category": "frequency"
+    },
+    {
+      "from": 71,
+      "label": "",
+      "to": 53,
+      "category": "related"
+    },
+    {
+      "from": 56,
+      "label": "",
+      "to": 53,
+      "category": "related"
+    },
+    {
+      "from": 57,
+      "label": "",
+      "to": 53,
+      "category": "related"
+    },
+    {
+      "from": 46,
+      "label": "",
+      "to": 47,
+      "category": "related"
+    },
+    {
       "from": 61,
       "label": "",
-      "to": 43,
+      "to": 53,
       "category": "related"
     },
     {
-      "from": 63,
+      "from": 73,
       "label": "",
-      "to": 49,
-      "category": "related"
-    },
-    {
-      "from": 62,
-      "label": "",
-      "to": 51,
-      "category": "related"
-    },
-    {
-      "from": 48,
-      "label": "",
-      "to": 49,
-      "category": "related"
-    },
-    {
-      "from": 70,
-      "label": "",
-      "to": 51,
-      "category": "related"
-    },
-    {
-      "from": 61,
-      "label": "",
-      "to": 63,
-      "category": "related"
-    },
-    {
-      "from": 61,
-      "label": "",
-      "to": 62,
-      "category": "related"
-    },
-    {
-      "from": 63,
-      "label": "",
-      "to": 61,
-      "category": "related"
-    },
-    {
-      "from": 63,
-      "label": "",
-      "to": 62,
-      "category": "related"
-    },
-    {
-      "from": 62,
-      "label": "",
-      "to": 61,
-      "category": "related"
-    },
-    {
-      "from": 62,
-      "label": "",
-      "to": 63,
+      "to": 53,
       "category": "related"
     },
     {
       "from": 72,
       "label": "",
-      "to": 79,
+      "to": 53,
       "category": "related"
     },
     {
-      "from": 66,
+      "from": 57,
       "label": "",
-      "to": 79,
-      "category": "frequency"
+      "to": 56,
+      "category": "related"
     },
     {
-      "from": 68,
+      "from": 56,
       "label": "",
-      "to": 79,
-      "category": "frequency"
+      "to": 57,
+      "category": "related"
     },
     {
-      "from": 70,
+      "from": 61,
       "label": "",
-      "to": 79,
-      "category": "frequency"
+      "to": 71,
+      "category": "related"
+    },
+    {
+      "from": 71,
+      "label": "",
+      "to": 61,
+      "category": "related"
+    },
+    {
+      "from": 71,
+      "label": "",
+      "to": 73,
+      "category": "related"
+    },
+    {
+      "from": 71,
+      "label": "",
+      "to": 72,
+      "category": "related"
+    },
+    {
+      "from": 73,
+      "label": "",
+      "to": 71,
+      "category": "related"
+    },
+    {
+      "from": 73,
+      "label": "",
+      "to": 72,
+      "category": "related"
     },
     {
       "from": 72,
       "label": "",
-      "to": 79,
-      "category": "frequency"
+      "to": 71,
+      "category": "related"
+    },
+    {
+      "from": 72,
+      "label": "",
+      "to": 73,
+      "category": "related"
     },
     {
       "from": 74,
       "label": "",
-      "to": 79,
+      "to": 85,
       "category": "frequency"
     },
     {
       "from": 76,
       "label": "",
-      "to": 79,
+      "to": 85,
       "category": "frequency"
     },
     {
       "from": 78,
       "label": "",
-      "to": 79,
+      "to": 85,
+      "category": "frequency"
+    },
+    {
+      "from": 80,
+      "label": "",
+      "to": 85,
+      "category": "frequency"
+    },
+    {
+      "from": 82,
+      "label": "",
+      "to": 85,
+      "category": "frequency"
+    },
+    {
+      "from": 84,
+      "label": "",
+      "to": 85,
       "category": "frequency"
     }
   ],
   "edges": [
     {
-      "id": 0,
-      "label": "region",
+      "id": 76,
+      "label": "tax",
       "category": "other",
       "ner": null,
       "value": 0
@@ -257,84 +275,70 @@
       "value": 0
     },
     {
-      "id": 76,
-      "label": "hour",
-      "category": "other",
-      "ner": null,
-      "value": 0
-    },
-    {
-      "id": 4,
-      "label": "rectification",
-      "category": "other",
-      "ner": null,
-      "value": 0
-    },
-    {
       "id": 74,
-      "label": "staff",
+      "label": "sales",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 68,
-      "label": "room",
+      "id": 80,
+      "label": "need",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 66,
-      "label": "control",
+      "id": 82,
+      "label": "standardising",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 70,
-      "label": "Islamabad",
+      "id": 8,
+      "label": "Revenue",
       "category": "other",
-      "ner": "GPE",
-      "value": "GPE"
+      "ner": null,
+      "value": 0
     },
     {
-      "id": 72,
-      "label": "officers",
+      "id": 10,
+      "label": "Authority",
+      "category": "other",
+      "ner": null,
+      "value": 0
+    },
+    {
+      "id": 12,
+      "label": "policies",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
       "id": 78,
-      "label": "power",
+      "label": "emphasised",
+      "category": "other",
+      "ner": null,
+      "value": 0
+    },
+    {
+      "id": 84,
+      "label": "rates",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
       "id": 18,
-      "label": "distribution",
+      "label": "Pakistan",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 21,
-      "label": "be",
-      "category": "other",
-      "ner": null,
-      "value": 0
-    },
-    {
-      "id": 22,
-      "label": "Iesco",
-      "category": "other",
-      "ner": null,
-      "value": 0
-    },
-    {
-      "id": 41,
+      "id": 39,
       "label": "frequency",
       "category": "frequency",
       "ner": null,
@@ -342,69 +346,83 @@
     },
     {
       "id": 24,
-      "label": "set",
+      "label": "addition",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 38,
-      "label": "monitor",
-      "category": "other",
-      "ner": null,
-      "value": 0
-    },
-    {
-      "id": 61,
-      "label": "Executive Islamabad Electric Supply Company",
+      "id": 73,
+      "label": "FBR",
       "category": "other",
       "ner": "ORG",
       "value": "ORG"
     },
     {
-      "id": 43,
+      "id": 28,
+      "label": "reforms",
+      "category": "other",
+      "ner": null,
+      "value": 0
+    },
+    {
+      "id": 71,
+      "label": "OICCI",
+      "category": "other",
+      "ner": "ORG",
+      "value": "ORG"
+    },
+    {
+      "id": 53,
       "label": "Organization",
       "category": "Organization",
       "ner": null,
       "value": 0
     },
     {
-      "id": 63,
-      "label": "Mohammad Amjad Khan",
+      "id": 56,
+      "label": "KARACHI",
+      "category": "other",
+      "ner": "ORG",
+      "value": "ORG"
+    },
+    {
+      "id": 57,
+      "label": "The Overseas Investors Chamber of Commerce and Industry",
+      "category": "other",
+      "ner": "ORG",
+      "value": "ORG"
+    },
+    {
+      "id": 46,
+      "label": "Muhammad Aurangzeb",
       "category": "other",
       "ner": "PERSON",
       "value": "PERSON"
     },
     {
-      "id": 49,
+      "id": 47,
       "label": "Person",
       "category": "other",
       "ner": null,
       "value": 0
     },
     {
-      "id": 62,
-      "label": "Eidul Fitr",
+      "id": 61,
+      "label": "the Federal Board of Revenue",
       "category": "other",
-      "ner": "GPE",
-      "value": "GPE"
+      "ner": "ORG",
+      "value": "ORG"
     },
     {
-      "id": 51,
-      "label": "Location",
-      "category": "Location",
-      "ner": null,
-      "value": 0
-    },
-    {
-      "id": 48,
-      "label": "Ramazan",
+      "id": 72,
+      "label": "the \u201cPakistan Revenue Authority",
       "category": "other",
-      "ner": "PERSON",
-      "value": "PERSON"
+      "ner": "ORG",
+      "value": "ORG"
     },
     {
-      "id": 79,
+      "id": 85,
       "label": "related",
       "category": "related",
       "ner": null,

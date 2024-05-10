@@ -1,0 +1,139 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('./B1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1; 
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    color: #333333;
+    margin: 0;
+    font-size: 36px;
+}
+
+.header p {
+    color: #555555;
+    font-size: 16px;
+}
+
+.keyword-input {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.keyword-input form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.keyword-input .form-group {
+    margin: 0 10px;
+}
+
+.keyword-input .form-control {
+    width: 180px;
+    border: none;
+    border-bottom: 2px solid #cccccc;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: transparent; /* Transparent background */
+    transition: border-color 0.3s, color 0.3s, background-color 0.3s;
+}
+
+.keyword-input .form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #f2f2f2; /* Light gray background on focus */
+}
+
+.keyword-input .btn-primary {
+    margin-top: 10px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.keyword-input .btn-primary:hover {
+    background-color: #2a7da7;
+}
+
+.plot-container {
+    height: 600px; /* Increased height */
+    border-radius: 15px; /* Slightly rounded corners */
+    overflow: hidden;
+    position: relative;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+    margin-top: 30%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    text-align: center;
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .keyword-input .form-control {
+        width: 100%;
+    }
+
+    .keyword-input .form-group {
+        margin: 0;
+    }
+
+    .keyword-input .btn-primary {
+        width: 100%;
+    }
+
+    .plot-container {
+        height: 400px;
+    }
+}

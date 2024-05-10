@@ -110,7 +110,7 @@ form.addEventListener("submit", (e) => {
     }
     keywords_global = keywords_data;
 
-   sessionStorage.setItem("date",date);
+   sessionStorage.setItem("date",JSON.stringify(date));
    
     
     sessionStorage.setItem("keywords", JSON.stringify(keywords_data))

@@ -27,8 +27,8 @@ try:
 
     # Fetch all rows from the result
     rows = cursor.fetchall()
-    rows=rows[0:50]
-    print(rows)
+    rows=rows
+    # print(rows)
     # cursor.execute("SELECT * from keywords;")
     # tables=cursor.fetchall()
     # print(tables)
@@ -41,11 +41,12 @@ try:
         # Obtain keywords using NewsMining
         try:
             data = Miner.main(details)
-            print(data)
+            # print(data)
             for label in data['edges']:
                 label_list.append(label['label'])
         except Exception as err:
-            print(err)
+            pass
+            # print(err)
                 
 
     #     # Insert keywords and IDs into the "keywords" table
