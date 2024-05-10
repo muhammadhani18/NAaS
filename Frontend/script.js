@@ -344,14 +344,17 @@ $(function() {
             // Clear existing options
             topicsDropdown.innerHTML = '';
 
+            for(var x = 0; x < d.length; x++){
+            var wordsArray = d[x].word.substring(1, d[x].word.length - 1).split(',');
+
             // Append new options based on the data received
-            d.forEach(item => {
+            wordsArray.forEach(word => {
                 var option = document.createElement('option');
-                option.text = item.word;
-                option.value = item.word;
+                option.text = word.trim(); // Trim to remove any extra spaces
+                option.value = word.trim(); // Trim to remove any extra spaces
                 topicsDropdown.appendChild(option);
             });
-
+            }
             // Refresh the selectpicker to update the dropdown
             $('.selectpicker').selectpicker('refresh');
             // $('#Topic option:first-child').attr('selected', 'selected');
