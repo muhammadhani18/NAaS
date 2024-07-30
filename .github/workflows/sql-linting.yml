@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      
   pull_request:
     branches:
       - main
@@ -11,21 +12,40 @@ jobs:
   check-and-lint:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install PostgreSQL client
-        run: sudo apt-get update && sudo apt-get install -y postgresql-client
-
       - name: Install sql-lint
         run: npm install -g sql-lint
+
+      - name: Wait for PostgreSQL
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          while ! pg_isready -h localhost -U postgres; do
+            sleep 1
+          done
 
       - name: Syntax Check with PostgreSQL
         run: |
           for file in $(find . -name "*.sql"); do
             echo "Checking syntax for $file"
-            psql -v ON_ERROR_STOP=1 -f "$file" -U postgres -d postgres --echo-queries -h localhost
+            psql -v ON_ERROR_STOP=1 -f "$file" -U postgres -d postgres -h localhost
           done
         env:
           PGPASSWORD: 1234
