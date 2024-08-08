@@ -30,7 +30,7 @@ df['creation_date'] = pd.to_datetime(df['creation_date'], errors='coerce')
 df['CombinedText'] = df['header'] + ' ' + df['summary'] + ' ' + df['details']
 
 # Define the aspects you want to analyze (four keywords)
-aspects_to_analyze = ["Voters", "PPP", "Khan", "Black"]
+# aspects_to_analyze = ["Voters", "PPP", "Khan", "Black"]
 
 # Function to get sentiment polarity for a given text
 def get_sentiment(text):
@@ -43,6 +43,8 @@ def get_sentiment(text):
 # def index():
 #     return render_template('../Frontend/sentiment.html')
 sentiment_timelines = {}
+sentiment_distributions = []
+articles_count = []
 
 @app.route('/plotSentiment', methods=['POST'])
 @cross_origin()
@@ -63,6 +65,9 @@ def plot_sentiment():
             sentiment_timeline = sentiment_timeline.sort_index()
             sentiment_timelines[aspect] = sentiment_timeline
             print(sentiment_timelines)
+            # Count the number of articles per keyword within the date range
+            articles_count.append({'keyword': aspect, 'count': len(aspect_df)})
+            print(aspect_df.columns)
 
     plot_data = []
     for keyword in keywords:
@@ -72,6 +77,12 @@ def plot_sentiment():
             plot_data.append({'x': x_values, 'y': y_values, 'type': 'scatter', 'mode': 'lines+markers', 'name': keyword})
         else:
             print(f"No data available for keyword: {keyword}")
+
+    # Add bar plot data for article counts
+    bar_x_values = [item['keyword'] for item in articles_count]
+    bar_y_values = [item['count'] for item in articles_count]
+    plot_data.append({'x': bar_x_values, 'y': bar_y_values, 'type': 'bar', 'name': 'Article Counts'})
+
     print(f"PLOT DATA: {plot_data}")        
     return jsonify(plotData=plot_data)
 
