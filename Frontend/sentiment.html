@@ -24,8 +24,8 @@
     </nav>
     <div class="container">
         <div class="header">
-            <h2>Sentiment Analysis Dashboard</h2>
-            <p>Enter up to four keywords to analyze sentiment</p>
+            <h2>Aspect Analysis Dashboard</h2>
+            <p>Enter up to maximum of four keywords to analyze sentiment</p>
         </div>
         <div class="keyword-input">
             <form id="keywordForm">
@@ -46,6 +46,11 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
+        <div class="button-container text-center">
+            <button id="showSentiment" class="btn btn-secondary">Show Sentiment Analysis</button>
+            <button id="showArticleCount" class="btn btn-secondary">Show Article Count</button>
+            <button id="showPieChart" class="btn btn-secondary">Show Sentiment Distribution</button>
+        </div>
         <div id="plot" class="plot-container"></div>
     </div>
 
@@ -57,9 +62,9 @@
         $(document).ready(function () {
             // Retrieve keywords from session storage
             var keywords_session = JSON.parse(sessionStorage.getItem("keywords")).keywords;
-            console.log(keywords_session)
+            console.log(keywords_session);
 
-            var date_session = sessionStorage.getItem("date")
+            var date_session = sessionStorage.getItem("date");
             console.log(date_session);
             
             // Fill in the keyword fields
@@ -88,20 +93,51 @@
                     contentType: 'application/json',
                     data: JSON.stringify({keywords: keywords, date: date_session}),
                     success: function (response) {
-                        var sortedData = response.plotData.map(function(series) {
+                        var sentimentData = response.plotData.filter(series => series.type === 'scatter');
+                        var articleCountData = response.plotData.filter(series => series.type === 'bar');
+                        var sortedData = sentimentData.map(function(series) {
                             series.x = series.x.map(function(dateString) {
                                 return new Date(dateString);
                             });
                             return series;
                         });
-                        var layout = {
-                            title: 'Sentiment Timeline for Keywords',
-                            xaxis: {title: 'Date'},
-                            yaxis: {title: 'Average Sentiment'},
-                            width: 1300, // Adjust the width of the plot
-                            height: 600 // Adjust the height of the plot
-                        };
-                        Plotly.newPlot('plot', sortedData, layout);
+                        // Function to render the sentiment analysis plot
+                        function renderSentimentPlot() {
+                            var layout = {
+                                title: 'Sentiment Timeline for Keywords',
+                                xaxis: {title: 'Date'},
+                                yaxis: {title: 'Average Sentiment'},
+                                width: 1300, // Adjust the width of the plot
+                                height: 600 // Adjust the height of the plot
+                            };
+                            console.log(sentimentData);
+                            Plotly.newPlot('plot', sortedData, layout);
+                        }
+
+                        // Function to render the article count plot
+                        function renderArticleCountPlot() {
+                            var layout = {
+                                title: 'Article Count for Keywords',
+                                xaxis: {title: 'Date'},
+                                yaxis: {title: 'Number of Articles'},
+                                width: 1300, // Adjust the width of the plot
+                                height: 600, // Adjust the height of the plot,
+                                barmode: 'group'
+                            };
+                            Plotly.newPlot('plot', articleCountData, layout);
+                        }
+                        
+                        // Initially render the sentiment analysis plot
+                        renderSentimentPlot();
+
+                        // Event listeners for toggle buttons
+                        $('#showSentiment').click(function() {
+                            renderSentimentPlot();
+                        });
+
+                        $('#showArticleCount').click(function() {
+                            renderArticleCountPlot();
+                        });
                     },
                     error: function (error) {
                         console.error('Error:', error);
